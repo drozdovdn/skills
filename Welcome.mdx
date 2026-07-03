@@ -1,0 +1,213 @@
+{/*
+  Welcome.mdx — главная страница Storybook библиотеки ak-core
+
+  Как подключить:
+  1. Положите файл в src/stories/ (или .storybook/docs/)
+  2. Убедитесь, что в .storybook/main.ts в stories включены mdx-файлы:
+     stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)']
+  3. ЗАМЕНИТЕ --w-accent ниже на фирменный цвет А.Страхование
+     (проще всего взять theme.palette.primary.main из вашей MUI-темы)
+  4. Проверьте href карточек — они должны совпадать с title ваших stories
+     (см. комментарии у каждой карточки)
+  5. Чтобы Welcome была первой в сайдбаре, добавьте в .storybook/preview.ts:
+
+     export default {
+       parameters: {
+         options: {
+           storySort: {
+             order: ['Getting Started', ['Welcome'], 'Design System', 'Components'],
+           },
+         },
+       },
+     };
+
+  Для Storybook 9: замените импорт на
+  import { Meta } from '@storybook/addon-docs/blocks';
+*/}
+
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Welcome" />
+
+<style>
+  {`
+  .welcome {
+    /* ГЛАВНАЯ НАСТРОЙКА: замените на фирменный hex А.Страхование,
+       например значение theme.palette.primary.main из MUI-темы */
+    --w-accent: #d91d0b; /* ПЛЕЙСХОЛДЕР — заменить на корпоративный цвет */
+    --w-accent-soft: color-mix(in srgb, var(--w-accent) 8%, transparent);
+    --w-border: rgba(128, 128, 140, 0.22);
+    --w-muted: rgba(90, 95, 110, 0.85);
+    max-width: 880px;
+    margin: 0 auto;
+    font-feature-settings: "ss01";
+  }
+
+  .welcome-hero {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--w-border);
+    margin-bottom: 40px;
+  }
+
+  .welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--w-accent);
+    background: var(--w-accent-soft);
+    border: 1px solid color-mix(in srgb, var(--w-accent) 25%, transparent);
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+  }
+
+  .welcome-hero h1 {
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    border: none;
+  }
+
+  .welcome-hero p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--w-muted);
+    max-width: 560px;
+    margin: 0;
+  }
+
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 0 0 48px;
+  }
+
+  .welcome-card {
+    display: block;
+    padding: 20px;
+    border: 1px solid var(--w-border);
+    border-radius: 12px;
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .welcome-card:hover {
+    border-color: var(--w-accent);
+    transform: translateY(-2px);
+  }
+
+  .welcome-card:focus-visible {
+    outline: 2px solid var(--w-accent);
+    outline-offset: 2px;
+  }
+
+  .welcome-card .icon {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .welcome-card h3 {
+    font-size: 15px;
+    font-weight: 650;
+    margin: 0 0 6px;
+  }
+
+  .welcome-card p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--w-muted);
+    margin: 0;
+  }
+
+  .welcome-section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--w-muted);
+    margin: 0 0 14px;
+  }
+
+  .welcome-note {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 18px;
+    border: 1px solid var(--w-border);
+    border-left: 3px solid var(--w-accent);
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 40px;
+  }
+
+  .welcome-note .date {
+    color: var(--w-muted);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .welcome-card { transition: none; }
+    .welcome-card:hover { transform: none; }
+  }
+  `}
+</style>
+
+<div className="welcome">
+
+  <div className="welcome-hero">
+    <span className="welcome-badge">v0.0.2 · В разработке</span>
+    <h1>ak-core</h1>
+    <p>
+      Библиотека UI-компонентов А.Страхование на основе Material UI.
+      Единые темы и компоненты для продуктов компании.
+    </p>
+  </div>
+
+  <p className="welcome-section-label">Разделы</p>
+
+  <div className="welcome-grid">
+    {/* Проверьте: href должен совпадать с title вашей story про темы.
+        Формат: title "Design System/Themes" → ?path=/docs/design-system-themes--docs */}
+    <a className="welcome-card" href="?path=/docs/design-system-themes--docs">
+      <div className="icon">🎨</div>
+      <h3>Дизайн-система</h3>
+      <p>Темы ak-core: палитра, типографика и примеры применения токенов.</p>
+    </a>
+    {/* title "Components/Button" → ?path=/docs/components-button--docs */}
+    <a className="welcome-card" href="?path=/docs/components-button--docs">
+      <div className="icon">🔘</div>
+      <h3>Button</h3>
+      <p>Кнопка на базе MUI: варианты, размеры, состояния и пропсы.</p>
+    </a>
+    {/* title "Components/TextField" → ?path=/docs/components-textfield--docs */}
+    <a className="welcome-card" href="?path=/docs/components-textfield--docs">
+      <div className="icon">✏️</div>
+      <h3>TextField</h3>
+      <p>Текстовое поле: валидация, подсказки, состояния ошибок.</p>
+    </a>
+  </div>
+
+  <p className="welcome-section-label">Установка</p>
+
+  ```bash
+  npm install ak-core
+  ```
+
+  {/* Если пакет публикуется под скоупом (например @ak/core) — поправьте команду выше */}
+
+  <div className="welcome-note">
+    <span className="date">v0.0.2</span>
+    <span>
+      Библиотека активно развивается: API компонентов может меняться
+      до стабильного релиза 1.0. Нашли проблему — напишите команде.
+    </span>
+  </div>
+
+</div>
